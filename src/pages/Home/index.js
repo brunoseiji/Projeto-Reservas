@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { MdFlightTakeoff } from 'react-icons/md';
 import api from '../../services/api';
+
+import './style.css';
 
 function Home() {
 
@@ -20,7 +23,21 @@ function Home() {
 
   return(
     <div>
-      <h1>Home</h1>
+      <div className="box">
+        {trips.map(trip => (
+          <li key={trip.id}>
+            <img src={trip.image} alt={trip.title} />
+            <strong>{trip.title}</strong>
+            <span>Status: {trip.status ? 'Disponível' : 'Indisponível'}</span>
+            <button type="button" onClick={() => {}}>
+              <div>
+                <MdFlightTakeoff size={16} color="#FFF" />
+              </div>
+              Solicitar Reserva
+            </button>
+          </li>
+        ))}
+      </div>
     </div>
   )
 }
