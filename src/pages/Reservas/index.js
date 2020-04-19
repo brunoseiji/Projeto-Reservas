@@ -1,13 +1,17 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { MdDelete } from 'react-icons/md';
 import './style.css';
+import { removeReserve } from '../../store/modules/reserve/actions';
 
 function Reservas() {
 
   const reserves = useSelector(state => state.reserve);
+  const dispatch = useDispatch();
 
-  console.log('MINHAS RESERVAS: ', reserves);
+  function handleRemove(id) {
+    dispatch(removeReserve(id))
+  }
 
   return(
     <div>
@@ -17,7 +21,7 @@ function Reservas() {
           <img src={reserve.image} alt={reserve.title} />
           <strong>{reserve.title}</strong>
           <span>Quantidade: {reserve.amount}</span>
-          <button type="button" onClick={() => {}}>
+          <button type="button" onClick={() => handleRemove(reserve.id)}>
             <MdDelete size={20} color="#A7A7A7" />
           </button>
         </div>
