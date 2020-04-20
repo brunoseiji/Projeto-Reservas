@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { MdDelete } from 'react-icons/md';
+import { removeReserve, updateAmountReserve } from '../../store/modules/reserve/actions';
+import { MdDelete, MdAddCircle, MdRemoveCircle } from 'react-icons/md';
 import './style.css';
-import { removeReserve } from '../../store/modules/reserve/actions';
+
 
 function Reservas() {
 
@@ -13,14 +14,35 @@ function Reservas() {
     dispatch(removeReserve(id))
   }
 
+  function decrementAmount(trip) {
+    dispatch(updateAmountReserve(trip.id, trip.amount - 1));
+  }
+
+  function incrementAmount(trip) {
+    dispatch(updateAmountReserve(trip.id, trip.amount + 1));
+  }
+
   return(
     <div>
       <h1 className="title">Você soliticou {reserves.length} reservas</h1>
+
       {reserves.map(reserve => (
         <div className="reservas" key={reserve.id}>
           <img src={reserve.image} alt={reserve.title} />
           <strong>{reserve.title}</strong>
-          <span>Quantidade: {reserve.amount}</span>
+          <div id="amount">
+
+            <button type="button" onClick={() => decrementAmount(reserve)}>
+              <MdRemoveCircle size={25} color="#A7A7A7" />
+            </button>
+
+            <input type="text" readOnly value={reserve.amount} />
+
+            <button type="button" onClick={() => incrementAmount(reserve)}>
+              <MdAddCircle size={25} color="#A7A7A7" />
+            </button>
+
+          </div>
           <button type="button" onClick={() => handleRemove(reserve.id)}>
             <MdDelete size={20} color="#A7A7A7" />
           </button>
