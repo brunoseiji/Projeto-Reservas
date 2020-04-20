@@ -26,7 +26,7 @@ function Home() {
   }, [])
 
   function handleAdd(id) {
-    dispatch(addReserveRequest(id))
+    dispatch(addReserveRequest(id));
   }
 
   return(
